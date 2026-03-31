@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/prash/Downloads/preview.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#667eea">
+<meta name="description" content="Class 9 Quiz App - Test your knowledge in Math, Physics, Chemistry, Biology, and SST">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Quiz App">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.svg">
+<link rel="icon" type="image/svg+xml" href="./icon-192.svg">
+<title>Class 9 Quiz App</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+
+.card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 30px;
+}
+
+h3 {
+  color: #333;
+  margin: 20px 0 15px 0;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+select:hover, select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+  outline: none;
+}
+
+button {
+  padding: 12px 24px;
+  margin: 8px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  min-height: 48px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, select {
+  -webkit-appearance: none;
+  appearance: none;
+  font-size: 16px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+#qNo {
+  font-size: 14px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+#timer {
+  font-size: 24px;
+  font-weight: bold;
+  color: #764ba2;
+  background: #f0e6ff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.options {
+  margin: 25px 0;
+}
+
+.options button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  background: #f8f9fa;
+  color: #333;
+  border: 2px solid #e0e0e0;
+  font-size: 15px;
+  padding: 15px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.options button:hover {
+  background: #f0f0f0;
+  border-color: #667eea;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+  margin: 0;
+}
+
+.options button.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+  justify-content: center;
+}
+
+.button-group button {
+  flex: 1;
+  margin: 0;
+}
+
+#result {
+  margin-top: 20px;
+  animation: slideIn 0.5s ease-out;
+}
+
+#result h3 {
+  text-align: center;
+  font-size: 28px;
+  color: #667eea;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f0e6ff;
+  border-radius: 15px;
+}
+
+#result p {
+  background: #f8f9fa;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 10px;
+  border-left: 4px solid #667eea;
+  line-height: 1.6;
+}
+
+#result hr {
+  border: none;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 15px 0;
+}
+
+#quizBox {
+  animation: slideIn 0.5s ease-out;
+}
+
+#installHelp {
+  font-size: 13px;
+  color: #555;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 25px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  #timer {
+    font-size: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="card">
+
+<div style="text-align: center; margin-bottom: 20px;">
+  <button type="button" id="installBtn" onclick="installApp()" style="display:none; background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);">⬇️ Install App</button>
+  <div id="installHelp"></div>
+</div>
+
+<h2>📚 Quiz App</h2>
+
+<select id="subject">
+  <option value="math">Maths</option>
+  <option value="physics">Physics</option>
+  <option value="chemistry">Chemistry</option>
+  <option value="biology">Biology</option>
+  <option value="sst">SST</option>
+</select>
+
+<button type="button" id="startBtn" onclick="startQuiz()">Start Quiz</button>
+
+<div id="quizBox" style="display: none;">
+  
+<div class="top">
+  <span id="qNo">Q 1/20</span>
+  <span id="timer">45</span>
+</div>
+
+<h3 id="question">Click Start Quiz to begin.</h3>
+
+<div class="options" id="options"></div>
+
+<div class="button-group">
+  <button type="button" id="prevBtn" onclick="prevQ()">← Prev</button>
+  <button type="button" id="nextBtn" onclick="nextQ()">Next →</button>
+  <button type="button" id="submitBtn" onclick="submitQuiz()">Submit</button>
+</div>
+
+</div>
+
+<div id="result"></div>
+
+</div>
+</div>
+
+<script>
+var baseData = {
+  math: [
+    {q:"Point (0,0) is called?",o:["Origin","Axis","Quadrant","Graph"],a:0,e:"(0,0) is origin"},
+    {q:"Abscissa means?",o:["y","x","z","none"],a:1,e:"x coordinate"},
+    {q:"Ordinate means?",o:["x","y","z","none"],a:1,e:"y coordinate"},
+    {q:"(3,4) lies in?",o:["Q1","Q2","Q3","Q4"],a:0,e:"Both positive"},
+    {q:"(-2,-3) lies in?",o:["Q1","Q2","Q3","Q4"],a:2,e:"Both negative"}
+  ],
+  physics: [
+    {q:"SI unit of speed?",o:["m/s","km","m","s"],a:0,e:"m/s"},
+    {q:"Speed is?",o:["scalar","vector","both","none"],a:0,e:"No direction"},
+    {q:"Distance is?",o:["scalar","vector","none","both"],a:0,e:"Scalar"},
+    {q:"Velocity includes?",o:["direction","mass","force","none"],a:0,e:"Direction"},
+    {q:"Rest means?",o:["no motion","fast","slow","none"],a:0,e:"No change"}
+  ],
+  chemistry: [
+    {q:"Matter has?",o:["mass","volume","both","none"],a:2,e:"Both"},
+    {q:"Solid has?",o:["fixed shape","no shape","gas","none"],a:0,e:"Fixed"},
+    {q:"Liquid flows?",o:["yes","no","maybe","none"],a:0,e:"Yes"},
+    {q:"Gas fills?",o:["container","nothing","fixed","none"],a:0,e:"Whole container"},
+    {q:"Evaporation is?",o:["surface","bulk","none","both"],a:0,e:"Surface"}
+  ],
+  biology: [
+    {q:"Cell is?",o:["basic unit","organ","tissue","none"],a:0,e:"Basic unit"},
+    {q:"Nucleus controls?",o:["cell","water","food","none"],a:0,e:"Controls"},
+    {q:"Cell membrane is?",o:["selective","open","closed","none"],a:0,e:"Selective"},
+    {q:"Mitochondria?",o:["powerhouse","brain","skin","none"],a:0,e:"Energy"},
+    {q:"Plant cell has?",o:["cell wall","no wall","none","gas"],a:0,e:"Wall"}
+  ],
+  sst: [
+    {q:"French Revolution year?",o:["1789","1776","1800","1750"],a:0,e:"1789"},
+    {q:"King of France?",o:["Louis XVI","Akbar","Ashoka","None"],a:0,e:"Louis XVI"},
+    {q:"Third Estate?",o:["common people","king","nobles","none"],a:0,e:"Common"},
+    {q:"Bastille attacked on?",o:["14 July","15 Aug","1 Jan","none"],a:0,e:"14 July"},
+    {q:"Motto?",o:["Liberty","Justice","None","Peace"],a:0,e:"Liberty Equality Fraternity"}
+  ]
+};
+
+var quiz = [];
+var current = 0;
+var answers = [];
+var time = 45;
+var timer = null;
+
+function expand(data) {
+  var res = [];
+  for (var i = 0; i < 20; i++) {
+    var q = data[i % data.length];
+    res.push({
+      q: q.q + " (" + (i + 1) + ")",
+      o: q.o,
+      a: q.a,
+      e: q.e
+    });
+  }
+  return res;
+}
+
+function startQuiz() {
+  var sub = document.getElementById("subject").value;
+  quiz = expand(baseData[sub]);
+  current = 0;
+  answers = [];
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("quizBox").style.display = "block";
+  document.getElementById("startBtn").innerHTML = "Restart Quiz";
+  loadQ();
+  return false;
+}
+
+function loadQ() {
+  if (!quiz.length) {
+    return;
+  }
+
+  clearInterval(timer);
+  time = 45;
+  document.getElementById("timer").innerHTML = time;
+
+  timer = setInterval(function () {
+    time--;
+    document.getElementById("timer").innerHTML = time;
+    if (time <= 0) {
+      if (current < quiz.length - 1) {
+        nextQ();
+      } else {
+        submitQuiz();
+      }
+    }
+  }, 1000);
+
+  var q = quiz[current];
+  var optHTML = "";
+  var i;
+
+  document.getElementById("qNo").innerHTML = "Q " + (current + 1) + "/" + quiz.length;
+  document.getElementById("question").innerHTML = q.q;
+
+  for (i = 0; i < q.o.length; i++) {
+    optHTML += '<button type="button" class="' + (answers[current] === i ? 'selected' : '') + '" onclick="selectOpt(' + i + ')">' + q.o[i] + '</button>';
+  }
+
+  document.getElementById("options").innerHTML = optHTML;
+  document.getElementById("prevBtn").disabled = current === 0;
+  document.getElementById("nextBtn").disabled = current === quiz.length - 1;
+}
+
+function selectOpt(i) {
+  if (!quiz.length) {
+    return false;
+  }
+  answers[current] = i;
+  loadQ();
+  return false;
+}
+
+function nextQ() {
+  if (!quiz.length) {
+    return false;
+  }
+  if (current < quiz.length - 1) {
+    current++;
+    loadQ();
+  }
+  return false;
+}
+
+function prevQ() {
+  if (!quiz.length) {
+    return false;
+  }
+  if (current > 0) {
+    current--;
+    loadQ();
+  }
+  return false;
+}
+
+function submitQuiz() {
+  if (!quiz.length) {
+    return false;
+  }
+
+  clearInterval(timer);
+  var score = 0;
+  var review = "";
+  var i;
+
+  for (i = 0; i < quiz.length; i++) {
+    var q = quiz[i];
+    var user = answers[i];
+    var correct = q.a;
+
+    if (user === correct) {
+      score++;
+    }
+
+    review += '<p>Q' + (i + 1) + ': ' + q.q + '<br>Your: ' + (typeof user === "number" ? q.o[user] : "Not answered") + '<br>Correct: ' + q.o[correct] + '<br>👉 ' + q.e + '</p><hr>';
+  }
+
+  document.getElementById("result").innerHTML = '<h3>Score: ' + score + '/' + quiz.length + '</h3>' + review;
+  return false;
+}
+
+var deferredPrompt = null;
+
+function showInstallButton(label) {
+  var installBtn = document.getElementById("installBtn");
+  if (installBtn) {
+    installBtn.style.display = "inline-block";
+    installBtn.innerHTML = label || "⬇️ Install App";
+  }
+}
+
+function hideInstallButton() {
+  var installBtn = document.getElementById("installBtn");
+  if (installBtn) {
+    installBtn.style.display = "none";
+  }
+}
+
+function setInstallHelp(message) {
+  var help = document.getElementById("installHelp");
+  if (help) {
+    help.innerHTML = message || "";
+  }
+}
+
+function isIos() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+
+function isStandalone() {
+  return window.navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+}
+
+function canInstallFromBrowser() {
+  return location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+}
+
+function setupPWA() {
+  hideInstallButton();
+
+  if (!canInstallFromBrowser()) {
+    setInstallHelp("To install this app on Android or iPhone, upload these files to <strong>GitHub Pages</strong> or <strong>Netlify</strong> and open the HTTPS link.");
+    return;
+  }
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js").catch(function (error) {
+      console.log("Service worker registration failed:", error);
+    });
+  }
+
+  if (isIos() && !isStandalone()) {
+    showInstallButton("📲 Add to iPhone");
+    setInstallHelp("On iPhone, open this page in <strong>Safari</strong>, tap <strong>Share</strong>, then tap <strong>Add to Home Screen</strong>.");
+  } else {
+    setInstallHelp("On Android, open the HTTPS link in <strong>Chrome</strong> and tap the install prompt when it appears.");
+  }
+
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallButton("⬇️ Install App");
+    setInstallHelp("Tap <strong>Install App</strong> to download this app to your Android home screen.");
+  });
+
+  window.addEventListener("appinstalled", function () {
+    deferredPrompt = null;
+    hideInstallButton();
+    setInstallHelp("✅ App installed successfully.");
+  });
+}
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function () {
+      deferredPrompt = null;
+      hideInstallButton();
+    });
+    return false;
+  }
+
+  if (isIos()) {
+    alert("On iPhone: open this app in Safari, tap Share, then Add to Home Screen.");
+  } else if (!canInstallFromBrowser()) {
+    alert("To install on Android, first upload this app to GitHub Pages or Netlify and open the HTTPS link in Chrome.");
+  } else {
+    alert("Open this app in Chrome and use the browser install option.");
+  }
+
+  return false;
+}
+
+window.onload = function () {
+  startQuiz();
+  setupPWA();
+};
+</script>
+
+
+</body></html>
